@@ -12,6 +12,14 @@ describe "Reader" do
    @reader.to_s.should == 'two, /Users/joelshin/Documents/testing/FileScanner/lib/numbers.txt'
   end
  
+  it "should know timestamp" do
+   @reader = Reader.new( 'two' ) do |r|
+    r.find_in_file("/Users/joelshin/Documents/testing/FileScanner/lib/numbers.txt") 
+   end
+   today = DateTime.now.strftime('%m%d%Y')
+   @reader.timestamp.should =~ Regexp.new(/#{today}/)
+  end
+
   it "should return one hit" do
    @reader = Reader.new( 'two' ) do |r|
     r.find_in_file("/Users/joelshin/Documents/testing/FileScanner/lib/numbers.txt") 
@@ -21,8 +29,9 @@ describe "Reader" do
  end
  
  describe "outputs" do
-  it "sss" do
-   true.should be_true
+  it "should get time" do
+   now = DateTime.now
+   puts "---> now: #{now.strftime('%m%d%Y_%k%M%S')}"
   end 
  end
 

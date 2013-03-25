@@ -25,4 +25,8 @@ class Reader
   "#{string}, #{filename}"
  end
 
+ def timestamp
+  DateTime.now.strftime('%m%d%Y_%k%M%S')
+ end
+
 end
