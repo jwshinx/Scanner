@@ -4,20 +4,20 @@ require 'world'
 describe "Reader" do
  include World
 
- it "bbb" do
-  File.open("/Users/joelshin/Documents/testing/FileScanner/lib/numbers.txt") do |file| 
-   puts ""
-   while line = file.gets
-    puts "---> #{line}"
+ describe "when grepping *two* in file numbers.txt" do
+  it "should display grep-string and path-and-filename" do
+   @reader = Reader.new( 'two' ) do |r|
+    r.find_in_file("/Users/joelshin/Documents/testing/FileScanner/lib/numbers.txt") 
    end
+   @reader.to_s.should == 'two, /Users/joelshin/Documents/testing/FileScanner/lib/numbers.txt'
   end
- end
-
- it "ddd" do
-  @reader = Reader.new( 'two' ) do |r|
-   r.set_file("/Users/joelshin/Documents/testing/FileScanner/lib/numbers.txt") 
+ 
+  it "should return one hit" do
+   @reader = Reader.new( 'two' ) do |r|
+    r.find_in_file("/Users/joelshin/Documents/testing/FileScanner/lib/numbers.txt") 
+   end
+   @reader.matches.include?('two').should be_true 
   end
-  @reader.to_s.should == 'two, /Users/joelshin/Documents/testing/FileScanner/lib/numbers.txt'
  end
 end
-
+ 

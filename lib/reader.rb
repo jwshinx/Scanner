@@ -1,16 +1,28 @@
 class Reader
- attr_accessor :string, :filename, :file
+ attr_accessor :string, :filename, :results
+
  def initialize text 
   @string = text 
-  @file = yield(self) if block_given?
+  @results = [] 
+  yield(self) if block_given?
  end
- def set_file filename
+
+ def find_in_file filename
   @filename = filename 
   File.open(filename) do |f|
-   puts "---> set_file block"
+   pattern = Regexp.new(/#{@string}/i)
+   while line = f.gets
+    @results << line.chomp if line =~ pattern
+   end
   end
  end
+
+ def matches
+  @results
+ end
+
  def to_s
   "#{string}, #{filename}"
  end
+
 end
