@@ -19,5 +19,26 @@ describe "Reader" do
    @reader.matches.include?('two').should be_true 
   end
  end
-end
  
+ describe "outputs" do
+  it "sss" do
+   true.should be_true
+  end 
+ end
+
+ describe "for fun" do
+  it "one" do
+   puts "---> file dirname: #{File.dirname(__FILE__)}"
+   puts "---> this file: #{__FILE__} - #{__FILE__.class}"
+   puts "---> expand: #{File.expand_path(File.dirname(__FILE__))}"
+   puts "---> myfile: #{File.expand_path('../lib/name.txt', File.dirname(__FILE__))}"
+   namefile = File.expand_path('../lib/name.txt', File.dirname(__FILE__))
+   File.open(namefile, "r") do |file|
+    while line = file.gets 
+     puts "---> line: #{line}"
+    end
+   end
+  end
+ end
+end
+
