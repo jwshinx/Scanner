@@ -18,7 +18,6 @@ class Reader
  end
 
  def write_output
-  path_and_filename = File.expand_path("../outputs/#{output_filename}", File.dirname(__FILE__))
   File.open("#{path_and_filename}", "w") do |file| 
    if @results.empty?
     file.puts 'No matches found.'
@@ -26,7 +25,10 @@ class Reader
     @results.each { |x| file.puts x } 
    end
   end
-  'output'
+ end
+
+ def path_and_filename
+  File.expand_path("../outputs/#{output_filename}", File.dirname(__FILE__))
  end
 
  def matches
@@ -34,7 +36,6 @@ class Reader
  end
 
  def output_file_exists?
-  path_and_filename = File.expand_path("../outputs/#{output_filename}", File.dirname(__FILE__))
   File.exists?(path_and_filename)
  end
 
