@@ -1,5 +1,5 @@
 class Reader
- attr_accessor :string, :filename, :results
+ attr_accessor :string, :input_filename, :results
 
  def initialize text 
   @string = text 
@@ -8,8 +8,8 @@ class Reader
  end
 
  def find_in_file filename
-  @filename = filename 
-  File.open(filename) do |f|
+  @input_filename = filename 
+  File.open(input_filename) do |f|
    pattern = Regexp.new(/#{@string}/i)
    while line = f.gets
     @results << line.chomp if line =~ pattern
@@ -17,12 +17,28 @@ class Reader
   end
  end
 
+ def write_output
+  path_and_filename = File.expand_path("../outputs/#{output_filename}", File.dirname(__FILE__))
+  File.open("#{path_and_filename}", "w") do |file| 
+   if @results.empty?
+    file.puts 'No matches found.'
+   else
+    @results.each { |x| file.puts x } 
+   end
+  end
+  'output'
+ end
+
  def matches
   @results
  end
 
  def to_s
-  "#{string}, #{filename}"
+  "#{string}, #{input_filename}"
+ end
+
+ def output_filename
+  "#{timestamp}_output.txt"
  end
 
  def timestamp
