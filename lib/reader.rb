@@ -10,7 +10,7 @@ class Reader
  def find_in_file filename
   @input_filename = filename 
   File.open(input_filename) do |f|
-   pattern = Regexp.new(/#{@string}/i)
+   pattern = Regexp.new(eval(string))
    while line = f.gets
     @results << line.chomp if line =~ pattern
    end
