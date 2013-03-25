@@ -33,6 +33,11 @@ class Reader
   @results
  end
 
+ def output_file_exists?
+  path_and_filename = File.expand_path("../outputs/#{output_filename}", File.dirname(__FILE__))
+  File.exists?(path_and_filename)
+ end
+
  def to_s
   "#{string}, #{input_filename}"
  end
