@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'world'
+require 'file'
 
 describe "Reader" do
  include World
@@ -46,5 +47,20 @@ describe "Reader" do
    end
   end
  end
+
+ describe "checking tail" do 
+  describe "modified file class" do 
+   before { @f = File.new('/Users/joelshin/Documents/testing/FileScanner/lib/numbers.txt') }
+   subject { @f }
+   its(:sayhi) { should == 'hi' }
+   its(:saybye) { should == 'bye' }
+   it "should return n value" do
+    #@f.tail(5).should == 55
+    puts @f.tail(3)
+   end
+  end
+ end
+
 end
+
  
